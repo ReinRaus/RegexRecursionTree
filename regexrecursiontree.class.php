@@ -9,8 +9,16 @@ class RRT {
 	}
 	
 	private function compile() {
-		
+	    $re = ""; // временное имя, станет $this->regex
+		$addLine =function( $line, $ident=0 ) use ( &$re ) {
+			$re.= str_repeat( " ", $ident*4 ).$line."\n";
+		};
+		$addLine( "(?:", 0 );
+		foreach ( $this->lexems as $k=>$v ) {
+			$addLine( "(?P<$k>$v)", 1 );
+		}
+        $addLine( "){0}", 0 );
+		$this->regex = $re;
+
 	}
 };
-
-echo 666;
